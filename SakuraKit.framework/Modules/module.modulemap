@@ -1,0 +1,6 @@
+framework module SakuraKit {
+  umbrella header "SakuraKit.h"
+
+  export *
+  module * { export * }
+}

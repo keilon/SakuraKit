@@ -6,7 +6,7 @@
 	<dict>
 		<key>Headers/SakuraDelegate.h</key>
 		<data>
-		rKDb0+uA/HgAOWGb4HNU/7IkWQU=
+		A7DDy8FdNEFgzDez7xj14dpqFP4=
 		</data>
 		<key>Headers/SakuraKit.h</key>
 		<data>
@@ -14,11 +14,11 @@
 		</data>
 		<key>Headers/SakuraMessage.h</key>
 		<data>
-		E+vSxHdRMR+4hoFw0ynDqjKXxsE=
+		a1wJG0RuEcO01h/kFIU24H2EaI0=
 		</data>
 		<key>Headers/SakuraTypes.h</key>
 		<data>
-		TjNlblagUyEiVZOUJyz5BbIj7RQ=
+		8FCU8dNcJ14TSbdEB8NR4h9eiWg=
 		</data>
 		<key>Info.plist</key>
 		<data>
@@ -35,11 +35,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			rKDb0+uA/HgAOWGb4HNU/7IkWQU=
+			A7DDy8FdNEFgzDez7xj14dpqFP4=
 			</data>
 			<key>hash2</key>
 			<data>
-			EpFxdlP8mTXov1ovNOr42/QC80rmL7lU/latYXDEU+A=
+			YONqSxYzi2opFdLLcB6isj887ZULKcy7E89ZSMC/+I4=
 			</data>
 		</dict>
 		<key>Headers/SakuraKit.h</key>
@@ -57,22 +57,22 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			E+vSxHdRMR+4hoFw0ynDqjKXxsE=
+			a1wJG0RuEcO01h/kFIU24H2EaI0=
 			</data>
 			<key>hash2</key>
 			<data>
-			2TzRZpqw5dfsCSgwC9kuwwiJyC9MR4QpZxeZP9A/Pcw=
+			r0lQSlZBS8NyiP7sF9IBVXApw9T0jeOLz66L18Vl/gE=
 			</data>
 		</dict>
 		<key>Headers/SakuraTypes.h</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			TjNlblagUyEiVZOUJyz5BbIj7RQ=
+			8FCU8dNcJ14TSbdEB8NR4h9eiWg=
 			</data>
 			<key>hash2</key>
 			<data>
-			CkafliU6j9JkygO6IUF9ifto014OjRCGQ/Bz55dbiLs=
+			e9Wrb5RYycBagFcQSaTmMI2u0i9S3KI+AX4p4117XL0=
 			</data>
 		</dict>
 		<key>Modules/module.modulemap</key>

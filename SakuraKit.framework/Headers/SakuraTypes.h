@@ -45,6 +45,13 @@ typedef enum {
  */
 @interface SIMessageBody : NSObject
 
+///JSON反序列化
++ (instancetype _Nullable)bodyWithJson:(NSString * _Nullable)data
+                              withType:(SIMessageType) type;
+
+///JSON序列化
+- (NSString *_Nullable)toJson;
+
 @end
 
 /*!

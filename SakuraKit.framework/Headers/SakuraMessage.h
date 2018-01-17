@@ -45,6 +45,14 @@
            fileServer:(NSDictionary * _Nullable )fileServer;
 
 /*!
+ * 断开当前连接
+ *
+ * @discussion 断开连接失败或者连接不存在时返回false
+ *
+ */
++ (BOOL)disconnectSakura;
+
+/*!
  * 注册 DeviceToken
  *
  * @param deviceToken 从注册推送回调中拿到的 DeviceToken

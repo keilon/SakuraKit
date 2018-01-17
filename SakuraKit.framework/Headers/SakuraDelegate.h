@@ -28,12 +28,12 @@
 /*!
  * 发送消息结果返回回调
  *
- * @param message 发出的消息id
+ * @param message 已经发出的消息
  * @param success 发送结果
  *
  */
 @optional
-- (void)onSentMessage:(NSString *)messageId
+- (void)onSentMessage:(SIMessage *)message
                result:(BOOL) success;
 
 /*!

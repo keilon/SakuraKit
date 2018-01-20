@@ -219,6 +219,9 @@ typedef enum {
  */
 @interface SISession : NSObject
 
+///由SIMessage构建SISession
++ (instancetype _Nullable)initWithSIMessage:(SIMessage * _Nullable)msg;
+
 ///会话Id
 @property(nonatomic, strong) NSString * _Nullable sessionId;
 ///会话类型

@@ -82,6 +82,18 @@
 + (void)resetBadge;
 
 /*!
+ * 创建会话
+ *
+ * @param sessionType 会话类型
+ * @param sessionMain 会话的主要目标
+ *
+ * 此接口用于客户端建立新的聊天会话
+ *
+ */
++ (SISession *_Nullable)createSession:(SISessionType )sessionType
+                          sessionMain:(NSString * _Nonnull)sessionMain;
+
+/*!
  * 发送消息接口
  *
  * @param message 发送的消息实体

@@ -65,14 +65,12 @@
 /*!
  * 设置角标(到服务器)
  *
- * @param value 角标的值
- *
+ * @param value      角标的值
  * @discussion 本接口不会改变应用本地的角标值.
  * 本地仍须调用 UIApplication:setApplicationIconBadgeNumber 函数来设置脚标.
  *
  */
 + (BOOL)setBadge:(NSInteger)value;
-
 /*!
  * 重置角标(为0)
  *

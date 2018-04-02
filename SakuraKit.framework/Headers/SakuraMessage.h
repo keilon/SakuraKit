@@ -59,7 +59,7 @@
  *
  * @param deviceToken 从注册推送回调中拿到的 DeviceToken
  *
- * @discussion 需要离线推送功能时，必须调用次方法
+ * @discussion 需要离线推送功能时，必须调用此方法
  *
  */
 + (void)registerDeviceToken:(NSData *_Nullable)deviceToken;

@@ -32,6 +32,7 @@
  *
  * @param identify    用户在 Sakura 中的id
  * @param token       用户连接 Sakura 的凭证
+ * @param appId       应用开发者向 sakura 注册的 appId
  * @param msgServer   Sakura message server 的地址
  * @param fileServer  Sakura file server 的地址
  *
@@ -41,6 +42,7 @@
  */
 + (void)connectSakura:(NSString * _Nullable )identify
                 token:(NSString * _Nullable )token
+                appId:(NSString * _Nullable )appId
             msgServer:(NSDictionary * _Nullable )msgServer
            fileServer:(NSDictionary * _Nullable )fileServer;
 
@@ -66,11 +68,13 @@
  * 设置角标(到服务器)
  *
  * @param value      角标的值
+ *
  * @discussion 本接口不会改变应用本地的角标值.
  * 本地仍须调用 UIApplication:setApplicationIconBadgeNumber 函数来设置脚标.
  *
  */
 + (BOOL)setBadge:(NSInteger)value;
+
 /*!
  * 重置角标(为0)
  *
@@ -87,9 +91,28 @@
  *
  * 此接口用于客户端建立新的聊天会话
  *
+ * @discussion 此方法即将删除，请使用
+ *    (SISession *_Nullable)createSession:(SISessionType )sessionType
+ *                            sessionMain:(NSString * _Nonnull)sessionMain
+ *                            sessionName:(NSString * _Nonnull)sessionName;
+ *
  */
 + (SISession *_Nullable)createSession:(SISessionType )sessionType
                           sessionMain:(NSString * _Nonnull)sessionMain;
+
+/*!
+ * 创建会话
+ *
+ * @param sessionType 会话类型
+ * @param sessionMain 会话的主要目标
+ * @param sessionName 会话的名称
+ *
+ * 此接口用于客户端建立新的聊天会话
+ *
+ */
++ (SISession *_Nullable)createSession:(SISessionType )sessionType
+                          sessionMain:(NSString * _Nonnull)sessionMain
+                          sessionName:(NSString * _Nonnull)sessionName;
 
 /*!
  * 发送消息接口

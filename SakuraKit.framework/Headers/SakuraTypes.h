@@ -45,6 +45,11 @@ typedef enum {
  */
 @interface SIMessageBody : NSObject
 
+///消息的发送方姓名标签
+@property(nonatomic, copy) NSString * _Nullable label;
+///消息扩展字段
+@property(nonatomic, copy) NSString * _Nullable extra;
+
 ///JSON反序列化
 + (instancetype _Nullable)bodyWithJson:(NSString * _Nullable)data
                               withType:(SIMessageType) type;
@@ -199,6 +204,8 @@ typedef enum {
 @property(nonatomic) SISessionType sessionType;
 ///会话的主要目标，即消息的发送目标
 @property(nonatomic, strong) NSString * _Nullable sessionMain;
+///会话的名称，即会话显示的标题
+@property(nonatomic, strong) NSString * _Nullable sessionName;
 ///消息的发送方
 @property(nonatomic, strong) NSString * _Nullable senderId;
 ///消息id
@@ -209,6 +216,9 @@ typedef enum {
 @property(nonatomic, strong) SIMessageBody * _Nullable messageBody;
 ///消息的时间戳
 @property(nonatomic) double messageTS;
+///消息的来源，接收时用来标识消息来源，发送时不需要赋值
+@property(nonatomic, strong) NSString * _Nullable domain;
+
 
 @end
 
@@ -226,8 +236,10 @@ typedef enum {
 @property(nonatomic, strong) NSString * _Nullable sessionId;
 ///会话类型
 @property(nonatomic) SISessionType sessionType;
-///会话的主要目标，即消息的发送目标，可以用来标识会话的名称和头像
+///会话的主要目标，即消息的发送目标
 @property(nonatomic, strong) NSString * _Nullable sessionMain;
+///会话的名称，即会话显示的标题
+@property(nonatomic, strong) NSString * _Nullable sessionName;
 ///最新一条消息的发送方
 @property(nonatomic, strong) NSString * _Nullable lastSenderId;
 ///最新一条消息的Id
@@ -240,6 +252,7 @@ typedef enum {
 @property(nonatomic) double lastMessageTS;
 ///未读消息计数
 @property(nonatomic) unsigned int unreadCount;
+
 
 @end
 

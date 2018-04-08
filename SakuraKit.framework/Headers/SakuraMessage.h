@@ -88,23 +88,6 @@
  *
  * @param sessionType 会话类型
  * @param sessionMain 会话的主要目标
- *
- * 此接口用于客户端建立新的聊天会话
- *
- * @discussion 此方法即将删除，请使用
- *    (SISession *_Nullable)createSession:(SISessionType )sessionType
- *                            sessionMain:(NSString * _Nonnull)sessionMain
- *                            sessionName:(NSString * _Nonnull)sessionName;
- *
- */
-+ (SISession *_Nullable)createSession:(SISessionType )sessionType
-                          sessionMain:(NSString * _Nonnull)sessionMain;
-
-/*!
- * 创建会话
- *
- * @param sessionType 会话类型
- * @param sessionMain 会话的主要目标
  * @param sessionName 会话的名称
  *
  * 此接口用于客户端建立新的聊天会话

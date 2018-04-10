@@ -31,6 +31,7 @@
  * 连接 Sakura 服务器
  *
  * @param identify    用户在 Sakura 中的id
+ * @param label       用户的名称标签，消息推送时会显示在接收方设备上
  * @param token       用户连接 Sakura 的凭证
  * @param appId       应用开发者向 sakura 注册的 appId
  * @param msgServer   Sakura message server 的地址
@@ -41,6 +42,7 @@
  *
  */
 + (void)connectSakura:(NSString * _Nullable )identify
+                label:(NSString * _Nullable )label
                 token:(NSString * _Nullable )token
                 appId:(NSString * _Nullable )appId
             msgServer:(NSDictionary * _Nullable )msgServer
@@ -88,14 +90,12 @@
  *
  * @param sessionType 会话类型
  * @param sessionMain 会话的主要目标
- * @param sessionName 会话的名称
  *
- * 此接口用于客户端建立新的聊天会话
- *
+ * @discussion 此接口用于客户端建立新的聊天会话
+ * 根据传入的 sessionType，sessionMain，返回包含 sessionId 信息的会话对象
  */
 + (SISession *_Nullable)createSession:(SISessionType )sessionType
-                          sessionMain:(NSString * _Nonnull)sessionMain
-                          sessionName:(NSString * _Nonnull)sessionName;
+                          sessionMain:(NSString * _Nonnull)sessionMain;
 
 /*!
  * 发送消息接口

@@ -204,10 +204,12 @@ typedef enum {
 @property(nonatomic) SISessionType sessionType;
 ///会话的主要目标，即消息的发送目标
 @property(nonatomic, strong) NSString * _Nullable sessionMain;
-///会话的名称，即会话显示的标题
-@property(nonatomic, strong) NSString * _Nullable sessionName;
-///消息的发送方
+///会话的名称标签
+@property(nonatomic, strong) NSString * _Nullable sessionLabel;
+///消息发送方,当 sessionType 为 SI_SESSION_SYSTEM 时无效
 @property(nonatomic, strong) NSString * _Nullable senderId;
+///消息发送方名称标签,当 sessionType 为 SI_SESSION_SYSTEM 时无效
+@property(nonatomic, strong) NSString * _Nullable senderLabel;
 ///消息id
 @property(nonatomic, strong) NSString * _Nullable messageId;
 ///消息类型
@@ -238,10 +240,12 @@ typedef enum {
 @property(nonatomic) SISessionType sessionType;
 ///会话的主要目标，即消息的发送目标
 @property(nonatomic, strong) NSString * _Nullable sessionMain;
-///会话的名称，即会话显示的标题
-@property(nonatomic, strong) NSString * _Nullable sessionName;
-///最新一条消息的发送方
+///会话的名称标签
+@property(nonatomic, strong) NSString * _Nullable sessionLabel;
+///最新一条消息的发送方,当 sessionType 为 SI_SESSION_SYSTEM 时无效
 @property(nonatomic, strong) NSString * _Nullable lastSenderId;
+///最新一条消息的发送方名称标签,,当 sessionType 为 SI_SESSION_SYSTEM 时无效
+@property(nonatomic, strong) NSString * _Nullable lastSenderLabel;
 ///最新一条消息的Id
 @property(nonatomic, strong) NSString * _Nullable lastMessageId;
 ///最新一条消息的类型

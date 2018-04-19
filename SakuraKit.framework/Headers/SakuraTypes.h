@@ -45,8 +45,6 @@ typedef enum {
  */
 @interface SIMessageBody : NSObject
 
-///消息的发送方姓名标签
-@property(nonatomic, copy) NSString * _Nullable label;
 ///消息扩展字段
 @property(nonatomic, copy) NSString * _Nullable extra;
 
@@ -204,11 +202,11 @@ typedef enum {
 @property(nonatomic) SISessionType sessionType;
 ///会话的主要目标，即消息的发送目标
 @property(nonatomic, strong) NSString * _Nullable sessionMain;
-///会话的名称标签
+///会话的标签
 @property(nonatomic, strong) NSString * _Nullable sessionLabel;
 ///消息发送方,当 sessionType 为 SI_SESSION_SYSTEM 时无效
 @property(nonatomic, strong) NSString * _Nullable senderId;
-///消息发送方名称标签,当 sessionType 为 SI_SESSION_SYSTEM 时无效
+///消息发送方标签,当 sessionType 为 SI_SESSION_SYSTEM 时无效
 @property(nonatomic, strong) NSString * _Nullable senderLabel;
 ///消息id
 @property(nonatomic, strong) NSString * _Nullable messageId;
@@ -216,7 +214,7 @@ typedef enum {
 @property(nonatomic) SIMessageType messageType;
 ///消息详情对象
 @property(nonatomic, strong) SIMessageBody * _Nullable messageBody;
-///消息的时间戳
+///消息的时间戳，发送时不需要赋值
 @property(nonatomic) double messageTS;
 ///消息的来源，接收时用来标识消息来源，发送时不需要赋值
 @property(nonatomic, strong) NSString * _Nullable domain;
@@ -240,11 +238,11 @@ typedef enum {
 @property(nonatomic) SISessionType sessionType;
 ///会话的主要目标，即消息的发送目标
 @property(nonatomic, strong) NSString * _Nullable sessionMain;
-///会话的名称标签
+///会话的标签
 @property(nonatomic, strong) NSString * _Nullable sessionLabel;
 ///最新一条消息的发送方,当 sessionType 为 SI_SESSION_SYSTEM 时无效
 @property(nonatomic, strong) NSString * _Nullable lastSenderId;
-///最新一条消息的发送方名称标签,,当 sessionType 为 SI_SESSION_SYSTEM 时无效
+///最新一条消息的发送方标签,,当 sessionType 为 SI_SESSION_SYSTEM 时无效
 @property(nonatomic, strong) NSString * _Nullable lastSenderLabel;
 ///最新一条消息的Id
 @property(nonatomic, strong) NSString * _Nullable lastMessageId;

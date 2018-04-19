@@ -11,6 +11,7 @@
 
 #import "SakuraTypes.h"
 #import "SakuraDelegate.h"
+#import <UIKit/UIKit.h>
 
 @protocol SakuraDelegate;
 
@@ -31,7 +32,7 @@
  * 连接 Sakura 服务器
  *
  * @param identify    用户在 Sakura 中的id
- * @param label       用户的名称标签，消息推送时会显示在接收方设备上
+ * @param label       用户的标签
  * @param token       用户连接 Sakura 的凭证
  * @param appId       应用开发者向 sakura 注册的 appId
  * @param msgServer   Sakura message server 的地址
@@ -39,6 +40,8 @@
  *
  * @discussion 此方法必须被调用, 用来初始化相关配置并连接 Sakura Server
  * msgServer 和 fileServer 均为 `NSDictionary` 类型，由 Sakura 服务端返回的两个地址直接用于此处，不要做转换操作
+ * label 参数 sakura 服务端会透传，可用来标识用户在应用方的userId或登录名，方便用户在收到消息时，根据此字段反查用户昵称，头像等信息
+ * label 参数不推荐直接传用户昵称
  *
  */
 + (void)connectSakura:(NSString * _Nullable )identify
@@ -86,6 +89,16 @@
 + (void)resetBadge;
 
 /*!
+ * 获取图片资源地址
+ *
+ * @param mediaId 图片的mediaId
+ *
+ * @discussion 获取图片的资源(downloadURL).
+ *
+ */
++ (NSString *_Nonnull)getImageResource: (NSString * _Nonnull)mediaId;
+
+/*!
  * 创建会话
  *
  * @param sessionType 会话类型
@@ -104,11 +117,43 @@
  *
  * @discussion 消息需要封装为 `SIMessage` 类型，再调用此接口发送
  * 消息发送后通过回调 SakuraDelegate onSentMessage 反馈结果
- *
  * 暂时只能发送 SISessionType 为 SI_SESSION_CHAT 或 SI_SESSION_GROUP 的消息
  *
  */
 - (void)sendMessage:(SIMessage * _Nonnull)message;
+
+/*!
+ * 发送图片接口
+ *
+ * @param aImage 图片
+ * @param session 当前聊天的session
+ * @param progressBlock 发送进度block
+ * @param completionHandler 发送结果block
+ *
+ * @discussion 上传图片资源，同时发送消息，相当于先调用 [uploadImage]，得到封装后的 `SIMessage`，再调用 [sendMessage]
+ * 发送进度回调暂未实现，progressBlock不会被调用
+ *
+ */
+- (void)sendImageMessage:(UIImage * _Nonnull)aImage
+                 session:(SISession * _Nonnull)session
+                progress:(void (^ _Nullable)(int progress))progressBlock
+              completion:(void (^ _Nullable)(BOOL success, NSError * _Nullable error))completionHandler;
+/*!
+ * 上传图片接口
+ *
+ * @param aImage  待上传的图片
+ * @param session 当前聊天的session
+ * @param progressBlock 上传进度block
+ * @param completionHandler 上传结果block
+ *
+ * @discussion 上传成功后 会返回信息 `SIMessage` 类型
+ * 上传进度回调暂未实现，progressBlock不会被调用
+ *
+ */
+- (void)uploadImage:(UIImage *_Nullable)aImage
+            session:(SISession *_Nonnull)session
+           progress:(void (^ _Nullable)(int progress))progressBlock
+         completion:(void (^ _Nullable)(SIMessage * _Nullable message, NSError * _Nullable error))completionHandler;
 
 @end
 

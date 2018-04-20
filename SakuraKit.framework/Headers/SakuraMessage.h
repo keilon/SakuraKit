@@ -32,7 +32,7 @@
  * 连接 Sakura 服务器
  *
  * @param identify    用户在 Sakura 中的id
- * @param label       用户的标签
+ * @param label       用户的名称标签
  * @param token       用户连接 Sakura 的凭证
  * @param appId       应用开发者向 sakura 注册的 appId
  * @param msgServer   Sakura message server 的地址
@@ -40,8 +40,7 @@
  *
  * @discussion 此方法必须被调用, 用来初始化相关配置并连接 Sakura Server
  * msgServer 和 fileServer 均为 `NSDictionary` 类型，由 Sakura 服务端返回的两个地址直接用于此处，不要做转换操作
- * label 参数 sakura 服务端会透传，可用来标识用户在应用方的userId或登录名，方便用户在收到消息时，根据此字段反查用户昵称，头像等信息
- * label 参数不推荐直接传用户昵称
+ * label 参数用于离线推送时标识用户的名称
  *
  */
 + (void)connectSakura:(NSString * _Nullable )identify
@@ -130,7 +129,7 @@
  * @param progressBlock 发送进度block
  * @param completionHandler 发送结果block
  *
- * @discussion 上传图片资源，同时发送消息，相当于先调用 [uploadImage]，得到封装后的 `SIMessage`，再调用 [sendMessage]
+ * @discussion 上传图片资源，同时发送消息，相当于先调用 [uploadImage]，再调用 [sendMessage]
  * 发送进度回调暂未实现，progressBlock不会被调用
  *
  */
@@ -143,18 +142,16 @@
  * 上传图片接口
  *
  * @param aImage  待上传的图片
- * @param session 当前聊天的session
  * @param progressBlock 上传进度block
  * @param completionHandler 上传结果block
  *
- * @discussion 上传成功后 会返回信息 `SIMessage` 类型
+ * @discussion 上传成功后，通过回调返回 `SIImageBody` 类型
  * 上传进度回调暂未实现，progressBlock不会被调用
  *
  */
 - (void)uploadImage:(UIImage *_Nullable)aImage
-            session:(SISession *_Nonnull)session
            progress:(void (^ _Nullable)(int progress))progressBlock
-         completion:(void (^ _Nullable)(SIMessage * _Nullable message, NSError * _Nullable error))completionHandler;
+         completion:(void (^ _Nullable)(SIImageBody * _Nullable imageBody, NSError * _Nullable error))completionHandler;
 
 @end
 

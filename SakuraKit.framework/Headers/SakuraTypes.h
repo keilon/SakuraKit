@@ -202,7 +202,7 @@ typedef enum {
 @property(nonatomic) SISessionType sessionType;
 ///会话的主要目标，即消息的发送目标
 @property(nonatomic, strong) NSString * _Nullable sessionMain;
-///会话的标签
+///会话的名称标签，单聊时为聊天对象名称，群聊时为群组名称
 @property(nonatomic, strong) NSString * _Nullable sessionLabel;
 ///消息发送方,当 sessionType 为 SI_SESSION_SYSTEM 时无效
 @property(nonatomic, strong) NSString * _Nullable senderId;
@@ -238,7 +238,7 @@ typedef enum {
 @property(nonatomic) SISessionType sessionType;
 ///会话的主要目标，即消息的发送目标
 @property(nonatomic, strong) NSString * _Nullable sessionMain;
-///会话的标签
+///会话的名称标签，单聊时为聊天对象名称，群聊时为群组名称
 @property(nonatomic, strong) NSString * _Nullable sessionLabel;
 ///最新一条消息的发送方,当 sessionType 为 SI_SESSION_SYSTEM 时无效
 @property(nonatomic, strong) NSString * _Nullable lastSenderId;

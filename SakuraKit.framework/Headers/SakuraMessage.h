@@ -138,6 +138,7 @@
                  session:(SISession * _Nonnull)session
                 progress:(void (^ _Nullable)(int progress))progressBlock
               completion:(void (^ _Nullable)(BOOL success, NSError * _Nullable error))completionHandler;
+
 /*!
  * 上传图片接口
  *

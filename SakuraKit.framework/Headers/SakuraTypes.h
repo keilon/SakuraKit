@@ -12,6 +12,16 @@
 #import <Foundation/Foundation.h>
 
 /*!
+ * 连接状态枚举
+ *
+ */
+typedef enum {
+    SI_CONN_DISCONNECT = 0,
+    SI_CONN_CONNECTING = 1,
+    SI_CONN_CONNECTED = 2
+} SIConnStatus;
+
+/*!
  * 会话类型枚举
  *
  */

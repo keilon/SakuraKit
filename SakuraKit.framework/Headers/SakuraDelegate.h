@@ -49,6 +49,19 @@
 @optional
 - (void)onSyncOfflineMessage:(NSArray *)messageList;
 
+/*!
+ * 连接状态通知回调
+ *
+ * @param status 当前的连接状态
+ *
+ * @discussion 由于网络问题导致连接断开时，sdk会自动尝试重连，此时应用层不要主动调用 [SakuraMessage connectSakura] 方法
+ *
+ * 上层通过此代理方法监听和 Sakura 服务器的连接状态
+ *
+ */
+@optional
+- (void)onConnStatusChange:(SIConnStatus)status;
+
 @end
 
 #endif /* SakuraDelegate_h */

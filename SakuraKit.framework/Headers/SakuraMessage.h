@@ -130,7 +130,6 @@
  * @param completionHandler 发送结果block
  *
  * @discussion 上传图片资源，同时发送消息，相当于先调用 [uploadImage]，再调用 [sendMessage]
- * 发送进度回调暂未实现，progressBlock不会被调用
  *
  */
 - (void)sendImageMessage:(UIImage * _Nonnull)aImage
@@ -146,11 +145,10 @@
  * @param completionHandler 上传结果block
  *
  * @discussion 上传成功后，通过回调返回 `SIImageBody` 类型
- * 上传进度回调暂未实现，progressBlock不会被调用
  *
  */
 - (void)uploadImage:(UIImage *_Nullable)aImage
-           progress:(void (^ _Nullable)(int progress))progressBlock
+           progress:(void (^ _Nullable)(float progress))progressBlock
          completion:(void (^ _Nullable)(SIImageBody * _Nullable imageBody, NSError * _Nullable error))completionHandler;
 
 @end

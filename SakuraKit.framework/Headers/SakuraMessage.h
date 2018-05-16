@@ -23,7 +23,7 @@
  * 获取SDK的实例
  *
  * @discussion SakuraMessage 采用单实例模式，只能通过此方法获取SDK的实例
- * 调用 instance method 时，涉及的操作对象仍然是该实例
+ * 调用 class method 时，涉及的操作对象仍然是该实例
  *
  */
 + (instancetype _Nonnull )sharedInstance;
@@ -97,6 +97,7 @@
  */
 + (NSString *_Nonnull)getImageResource: (NSString * _Nonnull)mediaId;
 
+
 /*!
  * 创建会话
  *
@@ -130,12 +131,12 @@
  * @param completionHandler 发送结果block
  *
  * @discussion 上传图片资源，同时发送消息，相当于先调用 [uploadImage]，再调用 [sendMessage]
- *
+ * 接口即将废弃， 应用层先调用uploadImage，上传成功后封装成 `SIMessage`， 再调用 [sendMessage] 方法
  */
 - (void)sendImageMessage:(UIImage * _Nonnull)aImage
                  session:(SISession * _Nonnull)session
                 progress:(void (^ _Nullable)(int progress))progressBlock
-              completion:(void (^ _Nullable)(BOOL success, NSError * _Nullable error))completionHandler;
+              completion:(void (^ _Nullable)(BOOL success, NSError * _Nullable error))completionHandler __deprecated;
 
 /*!
  * 上传图片接口
@@ -150,6 +151,36 @@
 - (void)uploadImage:(UIImage *_Nullable)aImage
            progress:(void (^ _Nullable)(float progress))progressBlock
          completion:(void (^ _Nullable)(SIImageBody * _Nullable imageBody, NSError * _Nullable error))completionHandler;
+
+/*!
+ * 上传音频接口
+ *
+ * @param audioData         待上传音频的二进制数据，目前只支持 amr 格式
+ * @param progressBlock     上传进度block
+ * @param completionHandler 上传结果block
+ *
+ * @discussion              上传成功后，通过回调返回 `SIVoiceBody` 类型
+ *
+ */
+- (void)uploadAudio:(NSData *_Nullable)audioData
+           progress:(void (^ _Nullable)(float progress))progressBlock
+         completion:(void (^ _Nullable)(SIVoiceBody * _Nullable voiceBody, NSError * _Nullable error))completionHandler;
+
+/*!
+ * 下载音频接口
+ *
+ * @param mediaId           待下载的文件mediaId
+ * @param filePath          音频文件下载存放的地址
+ * @param progressBlock     下载进度block
+ * @param completionHandler 下载结果block
+ *
+ * @discussion              上传成功后，通过回调返回 `data` 类型
+ *
+ */
+- (void)downloadAudio:(NSString * _Nonnull)mediaId
+               toPath:(NSString *_Nullable)filePath
+             progress:(void (^ _Nullable)(float progress))progressBlock
+           completion:(void (^ _Nullable)(BOOL success, NSData * _Nullable data, NSError * _Nullable error))completionHandler;
 
 @end
 

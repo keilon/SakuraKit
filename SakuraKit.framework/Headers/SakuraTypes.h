@@ -87,12 +87,19 @@ typedef enum {
  */
 @interface SIImageBody : SIMessageBody
 
+///图片的素材id，使用 SDK 的上传图片接口上传成功后会返回，若应用方自己保存源文件可自行管理（SDK 透传）
 @property(nonatomic, readwrite, copy) NSString * _Nullable mediaId;
+///图片缩略图的素材id，使用 SDK 的上传图片接口上传成功后会返回，若应用方自己保存源文件可自行管理（SDK 透传）
 @property(nonatomic, readwrite, copy) NSString * _Nullable thumbMediaId;
+///图片的标题
 @property(nonatomic, readwrite, copy) NSString * _Nullable title;
+///图片文件的大小
 @property(nonatomic, readwrite) int64_t size;
+///图片的长度
 @property(nonatomic, readwrite) int32_t height;
+///图片的宽度
 @property(nonatomic, readwrite) int32_t width;
+///图片文件的格式（扩展名），SDK 上传图片接口统一使用 jpg
 @property(nonatomic, readwrite, copy) NSString * _Nullable type;
 
 @end
@@ -105,9 +112,13 @@ typedef enum {
  */
 @interface SIVoiceBody : SIMessageBody
 
+///语音的素材id，使用 SDK 的上传音频接口上传成功后会返回，若应用方自己保存源文件可自行管理（SDK 透传）
 @property(nonatomic, readwrite, copy) NSString * _Nullable mediaId;
+///语音的播放时长
 @property(nonatomic, readwrite) int32_t duration;
+///语音文件的大小
 @property(nonatomic, readwrite) int64_t size;
+///语音文件的格式（扩展名），SDK 上传音频接口暂时只支持amr
 @property(nonatomic, readwrite, copy) NSString * _Nullable type;
 
 @end
@@ -120,11 +131,17 @@ typedef enum {
  */
 @interface SIVideoBody : SIMessageBody
 
+///视频的素材id，使用 SDK 的上传文件接口上传成功后会返回，若应用方自己保存源文件可自行管理（SDK 透传）
 @property(nonatomic, readwrite, copy) NSString * _Nullable mediaId;
+///视频封面图片素材id，使用 SDK 的上传图片接口上传成功后会返回，若应用方自己保存源文件可自行管理（SDK 透传）
 @property(nonatomic, readwrite, copy) NSString * _Nullable thumbMediaId;
+///视频的标题
 @property(nonatomic, readwrite, copy) NSString * _Nullable title;
+///视频的播放时长
 @property(nonatomic, readwrite) int32_t duration;
+///视频文件的大小
 @property(nonatomic, readwrite) int64_t size;
+///视频文件的格式（扩展名）
 @property(nonatomic, readwrite, copy) NSString * _Nullable type;
 
 @end
@@ -137,9 +154,13 @@ typedef enum {
  */
 @interface SIShortvideoBody : SIMessageBody
 
+///短视频的素材id，使用 SDK 的上传文件接口上传成功后会返回，若应用方自己保存源文件可自行管理（SDK 透传）
 @property(nonatomic, readwrite, copy) NSString * _Nullable mediaId;
+///短视频封面图片素材id，使用 SDK 的上传图片接口上传成功后会返回，若应用方自己保存源文件可自行管理（SDK 透传）
 @property(nonatomic, readwrite, copy) NSString * _Nullable thumbMediaId;
+///短视频的播放时长
 @property(nonatomic, readwrite) int32_t duration;
+///短视频文件的大小
 @property(nonatomic, readwrite) int64_t size;
 
 @end
@@ -152,9 +173,13 @@ typedef enum {
  */
 @interface SINewsBody : SIMessageBody
 
+///图文消息的标题
 @property(nonatomic, readwrite, copy ) NSString * _Nullable title;
+///图文消息的详情
 @property(nonatomic, readwrite, copy ) NSString * _Nullable desc;
+///图文消息跳转的url
 @property(nonatomic, readwrite, copy ) NSString * _Nullable linkurl;
+///图文消息封面图片的url
 @property(nonatomic, readwrite, copy ) NSString * _Nullable picurl;
 
 @end
@@ -167,9 +192,13 @@ typedef enum {
  */
 @interface SIFileBody : SIMessageBody
 
+///文件的素材id，使用 SDK 的上传文件接口上传成功后会返回，若应用方自己保存源文件可自行管理（SDK 透传）
 @property(nonatomic, readwrite, copy) NSString * _Nullable mediaId;
+///文件的标题
 @property(nonatomic, readwrite, copy) NSString * _Nullable title;
+///文件的大小
 @property(nonatomic, readwrite) int64_t size;
+///文件的格式（扩展名）
 @property(nonatomic, readwrite, copy) NSString * _Nullable type;
 
 @end
@@ -182,7 +211,9 @@ typedef enum {
  */
 @interface SICustomBody : SIMessageBody
 
+///自定义消息的类型，SDK 透传给应用层
 @property(nonatomic, readwrite, copy) NSString * _Nullable type;
+///自定义消息的消息体，SDK 透传给应用层
 @property(nonatomic, readwrite, copy) NSString * _Nullable body;
 
 @end
@@ -195,6 +226,7 @@ typedef enum {
  */
 @interface SISystemBody : SIMessageBody
 
+///系统消息的内容
 @property(nonatomic, readwrite, copy) NSString * _Nullable content;
 
 @end
@@ -218,7 +250,7 @@ typedef enum {
 @property(nonatomic, strong) NSString * _Nullable senderId;
 ///消息发送方标签
 @property(nonatomic, strong) NSString * _Nullable senderLabel;
-///消息id
+///消息id，应用层指定时推荐使用 `[[NSUUID UUID] UUIDString]` 生成，应用层不指定时 SDK 会自己生成
 @property(nonatomic, strong) NSString * _Nullable messageId;
 ///消息类型
 @property(nonatomic) SIMessageType messageType;
@@ -262,7 +294,7 @@ typedef enum {
 @property(nonatomic, strong) SIMessageBody * _Nullable lastMessageBody;
 ///最新一条消息的时间戳
 @property(nonatomic) double lastMessageTS;
-///未读消息计数
+///未读消息计数，目前 SDK 暂未记录，由应用层进行统计
 @property(nonatomic) unsigned int unreadCount;
 
 

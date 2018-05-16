@@ -54,7 +54,7 @@
  *
  * @param status 当前的连接状态
  *
- * @discussion 由于网络问题导致连接断开时，sdk会自动尝试重连，此时应用层不要主动调用 [SakuraMessage connectSakura] 方法
+ * @discussion 由于网络问题导致连接断开时，SDK会自动尝试重连，此时应用层不要主动调用 [SakuraMessage connectSakura] 方法
  *
  * 上层通过此代理方法监听和 Sakura 服务器的连接状态
  *

@@ -143,8 +143,13 @@ typedef enum {
 @property(nonatomic, readwrite) int64_t size;
 ///视频文件的格式（扩展名）
 @property(nonatomic, readwrite, copy) NSString * _Nullable type;
+//第一帧图片的高度
+@property(nonatomic, readwrite) int32_t height;
+//第一帧图片的宽度
+@property(nonatomic, readwrite) int32_t width;
 
 @end
+
 
 /*!
  * 短视频消息
@@ -162,6 +167,12 @@ typedef enum {
 @property(nonatomic, readwrite) int32_t duration;
 ///短视频文件的大小
 @property(nonatomic, readwrite) int64_t size;
+//视频类型,目前没用,默认mp4格式
+@property(nonatomic, readwrite, copy) NSString * _Nullable type;
+///图片的长度
+@property(nonatomic, readwrite) int32_t height;
+///图片的宽度
+@property(nonatomic, readwrite) int32_t width;
 
 @end
 

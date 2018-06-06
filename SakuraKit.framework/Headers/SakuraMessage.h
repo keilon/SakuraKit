@@ -48,7 +48,41 @@
                 token:(NSString * _Nullable )token
                 appId:(NSString * _Nullable )appId
             msgServer:(NSDictionary * _Nullable )msgServer
+           fileServer:(NSDictionary * _Nullable )fileServer __deprecated;
+
+
+
+/*!
+ * 连接 Sakura 服务器所需要的参数配置
+ *
+ * @param identify    用户在 Sakura 中的id
+ * @param label       用户的名称标签
+ * @param token       用户连接 Sakura 的凭证
+ * @param appId       应用开发者向 sakura 注册的 appId
+ * @param msgServer   Sakura message server 的地址
+ * @param fileServer  Sakura file server 的地址
+ *
+ * @discussion 此方法必须被调用, 用来初始化相关配置并连接 Sakura Server
+ * msgServer 和 fileServer 均为 `NSDictionary` 类型，由 Sakura 服务端返回的两个地址直接用于此处，不要做转换操作
+ * label 参数用于离线推送时标识用户的名称
+ *
+ */
++ (void)configSakura:(NSString * _Nullable )identify
+                label:(NSString * _Nullable )label
+                token:(NSString * _Nullable )token
+                appId:(NSString * _Nullable )appId
+            msgServer:(NSDictionary * _Nullable )msgServer
            fileServer:(NSDictionary * _Nullable )fileServer;
+
+
+/*!
+ * 连接 Sakura 服务器
+ *
+ *
+ */
++ (void)connectSakura;
+
+
 
 /*!
  * 断开当前连接
@@ -166,6 +200,23 @@
            progress:(void (^ _Nullable)(float progress))progressBlock
          completion:(void (^ _Nullable)(SIVoiceBody * _Nullable voiceBody, NSError * _Nullable error))completionHandler;
 
+
+
+/*!
+ * 上传视频接口
+ *
+ * @param videoData         待上传音频的二进制数据，目前只支持 mov 格式
+ * @param progressBlock     上传进度block
+ * @param completionHandler 上传结果block
+ *
+ * @discussion              上传成功后，通过回调返回 `SIVideoBody` 类型
+ *
+ */
+- (void)uploadVideo:(NSData *_Nullable)videoData
+           progress:(void (^ _Nullable)(float progress))progressBlock
+         completion:(void (^ _Nullable)(SIShortvideoBody * _Nullable videoBody, NSError * _Nullable error))completionHandler;
+
+
 /*!
  * 下载音频接口
  *
@@ -181,6 +232,18 @@
                toPath:(NSString *_Nullable)filePath
              progress:(void (^ _Nullable)(float progress))progressBlock
            completion:(void (^ _Nullable)(BOOL success, NSData * _Nullable data, NSError * _Nullable error))completionHandler;
+
+
+
+/*!
+ * 获取离线信息
+ *
+ * @param completionHandler 获取历史消息结果block
+ *
+ * @discussion              以数组的形式返回历史消息,调用之前必须将Sakura需要的参数配置齐全
+ *
+ */
+- (void)getHistoryMessage:(void (^ _Nullable)(NSArray * _Nullable messageList, NSError * _Nullable error))completionHandler;
 
 @end
 

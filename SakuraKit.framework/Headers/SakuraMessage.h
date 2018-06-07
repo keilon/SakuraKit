@@ -29,7 +29,7 @@
 + (instancetype _Nonnull )sharedInstance;
 
 /*!
- * 连接 Sakura 服务器
+ * 连接 Sakura 服务器(deprecated)
  *
  * @param identify    用户在 Sakura 中的id
  * @param label       用户的名称标签
@@ -41,6 +41,7 @@
  * @discussion 此方法必须被调用, 用来初始化相关配置并连接 Sakura Server
  * msgServer 和 fileServer 均为 `NSDictionary` 类型，由 Sakura 服务端返回的两个地址直接用于此处，不要做转换操作
  * label 参数用于离线推送时标识用户的名称
+ * 接口将废弃
  *
  */
 + (void)connectSakura:(NSString * _Nullable )identify
@@ -50,10 +51,8 @@
             msgServer:(NSDictionary * _Nullable )msgServer
            fileServer:(NSDictionary * _Nullable )fileServer __deprecated;
 
-
-
 /*!
- * 连接 Sakura 服务器所需要的参数配置
+ * 初始化 Sakura 参数配置
  *
  * @param identify    用户在 Sakura 中的id
  * @param label       用户的名称标签
@@ -62,7 +61,7 @@
  * @param msgServer   Sakura message server 的地址
  * @param fileServer  Sakura file server 的地址
  *
- * @discussion 此方法必须被调用, 用来初始化相关配置并连接 Sakura Server
+ * @discussion 此方法必须被调用, 用来初始化相关配置
  * msgServer 和 fileServer 均为 `NSDictionary` 类型，由 Sakura 服务端返回的两个地址直接用于此处，不要做转换操作
  * label 参数用于离线推送时标识用户的名称
  *
@@ -74,15 +73,13 @@
             msgServer:(NSDictionary * _Nullable )msgServer
            fileServer:(NSDictionary * _Nullable )fileServer;
 
-
 /*!
  * 连接 Sakura 服务器
  *
+ * @discussion 此方法需要在 [configSakura] 之后调用，用来创建连接
  *
  */
 + (void)connectSakura;
-
-
 
 /*!
  * 断开当前连接
@@ -131,6 +128,15 @@
  */
 + (NSString *_Nonnull)getImageResource: (NSString * _Nonnull)mediaId;
 
+/*!
+ * 获取视频资源地址
+ *
+ * @param mediaId 视频的mediaId
+ *
+ * @discussion 获取视频的资源(downloadURL).
+ *
+ */
++ (NSString *_Nonnull)getVideoResource: (NSString * _Nonnull)mediaId;
 
 /*!
  * 创建会话
@@ -157,7 +163,7 @@
 - (void)sendMessage:(SIMessage * _Nonnull)message;
 
 /*!
- * 发送图片接口
+ * 发送图片接口(deprecated)
  *
  * @param aImage 图片
  * @param session 当前聊天的session
@@ -165,7 +171,7 @@
  * @param completionHandler 发送结果block
  *
  * @discussion 上传图片资源，同时发送消息，相当于先调用 [uploadImage]，再调用 [sendMessage]
- * 接口即将废弃， 应用层先调用uploadImage，上传成功后封装成 `SIMessage`， 再调用 [sendMessage] 方法
+ * 接口将废弃， 应用层先调用uploadImage，上传成功后封装成 `SIMessage`， 再调用 [sendMessage] 方法
  */
 - (void)sendImageMessage:(UIImage * _Nonnull)aImage
                  session:(SISession * _Nonnull)session
@@ -200,8 +206,6 @@
            progress:(void (^ _Nullable)(float progress))progressBlock
          completion:(void (^ _Nullable)(SIVoiceBody * _Nullable voiceBody, NSError * _Nullable error))completionHandler;
 
-
-
 /*!
  * 上传视频接口
  *
@@ -215,7 +219,6 @@
 - (void)uploadVideo:(NSData *_Nullable)videoData
            progress:(void (^ _Nullable)(float progress))progressBlock
          completion:(void (^ _Nullable)(SIShortvideoBody * _Nullable videoBody, NSError * _Nullable error))completionHandler;
-
 
 /*!
  * 下载音频接口
@@ -233,14 +236,28 @@
              progress:(void (^ _Nullable)(float progress))progressBlock
            completion:(void (^ _Nullable)(BOOL success, NSData * _Nullable data, NSError * _Nullable error))completionHandler;
 
-
+/*!
+ * 下载视频接口
+ *
+ * @param mediaId           待下载的文件mediaId
+ * @param filePath          视频文件下载存放的地址
+ * @param progressBlock     下载进度block
+ * @param completionHandler 下载结果block
+ *
+ * @discussion              上传成功后，通过回调返回 `data` 类型
+ *
+ */
+- (void)downloadVideo:(NSString * _Nonnull)mediaId
+               toPath:(NSString *_Nullable)filePath
+             progress:(void (^ _Nullable)(float progress))progressBlock
+           completion:(void (^ _Nullable)(BOOL success, NSData * _Nullable data, NSError * _Nullable error))completionHandler;
 
 /*!
  * 获取离线信息
  *
  * @param completionHandler 获取历史消息结果block
  *
- * @discussion              以数组的形式返回历史消息,调用之前必须将Sakura需要的参数配置齐全
+ * @discussion              以数组的形式返回历史消息,调用之前必须先调用 [configSakura]
  *
  */
 - (void)getHistoryMessage:(void (^ _Nullable)(NSArray * _Nullable messageList, NSError * _Nullable error))completionHandler;

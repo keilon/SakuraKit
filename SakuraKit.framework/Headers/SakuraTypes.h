@@ -44,7 +44,8 @@ typedef enum {
     SI_MESSAGE_NEWS = 6,
     SI_MESSAGE_FILE_T = 7,
     SI_MESSAGE_CUSTOM = 8,
-    SI_MESSAGE_SYSTEM_T = 9
+    SI_MESSAGE_SYSTEM_T = 9,
+    SI_MESSAGE_RECALL_T = 10
 } SIMessageType;
 
 /*!
@@ -226,6 +227,9 @@ typedef enum {
 @property(nonatomic, readwrite, copy) NSString * _Nullable type;
 ///自定义消息的消息体，SDK 透传给应用层
 @property(nonatomic, readwrite, copy) NSString * _Nullable body;
+//自定义消息push内容
+@property(nonatomic, readwrite, copy) NSString * _Nullable pushContent;
+
 
 @end
 
@@ -241,6 +245,22 @@ typedef enum {
 @property(nonatomic, readwrite, copy) NSString * _Nullable content;
 
 @end
+
+
+/*!
+ * 撤回消息
+ *
+ * 撤回消息的body
+ *
+ */
+@interface SIRecallBody : SIMessageBody
+
+//撤回消息的ID
+@property(nonatomic, readwrite, copy) NSString * _Nullable messageId;
+
+@end
+
+
 
 /*!
  * 消息

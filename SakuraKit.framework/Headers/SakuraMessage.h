@@ -118,6 +118,16 @@
  */
 + (void)resetBadge;
 
+
+/*!
+ * 是否打印日志
+ * @param logFlag    是否开启的标志
+ *
+ * @discussion 默认不开启
+ *
+ */
++ (void)setEnableLog:(BOOL)logFlag;
+
 /*!
  * 获取图片资源地址
  *

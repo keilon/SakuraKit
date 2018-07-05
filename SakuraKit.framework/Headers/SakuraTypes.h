@@ -45,8 +45,28 @@ typedef enum {
     SI_MESSAGE_FILE = 7,
     SI_MESSAGE_CUSTOM = 8,
     SI_MESSAGE_SYSTEM = 9,
-    SI_MESSAGE_RECALL = 10
+    SI_MESSAGE_RECALL = 10,
+    SI_MESSAGE_REMIND = 11
 } SIMessageType;
+
+
+/*!
+ * 消息的状态枚举
+ *
+ */
+typedef enum {
+    SI_MESSAGE_UPLOADING = 1,     // 上传中，对于语音，图片等
+    SI_MESSAGE_SENDING = 2,       // 发送中
+    SI_MESSAGE_SENT = 3,          // 发送成功
+    SI_MESSAGE_FAILED = 4,        // 发送失败
+    SI_MESSAGE_NEEDREPEAT = 5,    // 由于网络问题没有发送出去,需要再次尝试
+    SI_MESSAGE_CREATING = 6,      // 创建中,草稿
+    SI_MESSAGE_ARRIVED = 7,       // 已到达
+    SI_MESSAGE_UNREAD = 10,       // 未读
+    SI_MESSAGE_READ = 11,         // 已读
+    SI_MESSAGE_UNKNOW = -1,       // 不存在此消息
+} SIMessageStatus;
+
 
 /*!
  * 消息内容（抽象类）
@@ -261,6 +281,23 @@ typedef enum {
 @end
 
 
+/*!
+ * @消息
+ *
+ * @消息的body
+ *
+ */
+@interface SIRemindBody : SIMessageBody
+
+// 被@人的userId组成的数组.   [userid,userid,...]
+@property(nonatomic, readwrite, copy) NSArray * _Nullable identifies;
+//内容
+@property(nonatomic, readwrite, copy) NSString * _Nullable content;
+
+@end
+
+
+
 
 /*!
  * 消息
@@ -291,6 +328,8 @@ typedef enum {
 @property(nonatomic) double messageTS;
 ///消息的来源，接收时用来标识消息来源，发送时不需要赋值
 @property(nonatomic, strong) NSString * _Nullable domain;
+///消息的状态
+@property(nonatomic) SIMessageStatus messageStatus;
 
 
 @end

@@ -286,10 +286,12 @@ typedef enum {
  *
  * @消息的body
  *
+ * identifies可以为被@用户的identify,也可以为群的id
+ * content为的发送的内容
  */
 @interface SIRemindBody : SIMessageBody
 
-// 被@人的userId组成的数组.   [userid,userid,...]
+// 被@用户的identify组成的数组.[identify,identify,...] 或者 @所有人时传入群的id [groupId]
 @property(nonatomic, readwrite, copy) NSArray * _Nullable identifies;
 //内容
 @property(nonatomic, readwrite, copy) NSString * _Nullable content;

@@ -61,17 +61,49 @@
  * @param msgServer   Sakura message server 的地址
  * @param fileServer  Sakura file server 的地址
  *
- * @discussion 此方法必须被调用, 用来初始化相关配置
- * msgServer 和 fileServer 均为 `NSDictionary` 类型，由 Sakura 服务端返回的两个地址直接用于此处，不要做转换操作
+ * @discussion 此方法用来初始化相关配置，使用不含 fileServer 参数的 `configSakura` 代替
  * label 参数用于离线推送时标识用户的名称
- *
+ * 接口将废弃，不再需要传入fileServer
  */
 + (void)configSakura:(NSString * _Nullable )identify
                 label:(NSString * _Nullable )label
                 token:(NSString * _Nullable )token
                 appId:(NSString * _Nullable )appId
             msgServer:(NSDictionary * _Nullable )msgServer
-           fileServer:(NSDictionary * _Nullable )fileServer;
+           fileServer:(NSDictionary * _Nullable )fileServer __deprecated;
+
+/*!
+ * 初始化 Sakura 参数配置
+ *
+ * @param identify    用户在 Sakura 中的id
+ * @param label       用户的名称标签
+ * @param token       用户连接 Sakura 的凭证
+ * @param appId       应用开发者向 sakura 注册的 appId
+ * @param msgServer   Sakura message server 的地址
+ *
+ * @discussion 此方法必须被调用, 用来初始化相关配置
+ * msgServer 为 `NSDictionary` 类型，由 Sakura 服务端返回的 msgServer 地址直接用于此处，不要做转换操作
+ */
++ (void)configSakura:(NSString * _Nonnull)identify
+               label:(NSString * _Nonnull)label
+               token:(NSString * _Nonnull)token
+               appId:(NSString * _Nonnull)appId
+           msgServer:(NSDictionary * _Nonnull)msgServer;
+
+/*!
+ * 提供 Sakura 服务端地址配置
+ *
+ * @param apiBase    指定 sakura api 的 base uri 地址
+ * @param fileBase   指定 sakura file 的 base uri 地址
+ *
+ * @discussion base uri 地址格式为 scheme://host[:port] 例如：
+ *      https://tkim.top
+ *      https://tkim.top:8443
+ *      http://tkim.top
+ *      http://tkim.top:8080
+ */
++ (void)configServer:(NSString * _Nonnull)apiBase
+            fileBase:(NSString * _Nonnull)fileBase;
 
 /*!
  * 连接 Sakura 服务器

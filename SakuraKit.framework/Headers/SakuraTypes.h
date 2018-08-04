@@ -51,21 +51,26 @@ typedef enum {
 
 
 /*!
- * 消息的状态枚举
+ * 消息的状态类型
+ *
+ * 此处定义了可能用到的消息状态，客户端可以根据需求定义更多状态，取值从100以后开始
+ *
+ * TODO SDK 中追加消息状态维护
  *
  */
-typedef enum {
-    SI_MESSAGE_UPLOADING = 1,     // 上传中，对于语音，图片等
-    SI_MESSAGE_SENDING = 2,       // 发送中
-    SI_MESSAGE_SENT = 3,          // 发送成功
-    SI_MESSAGE_FAILED = 4,        // 发送失败
-    SI_MESSAGE_NEEDREPEAT = 5,    // 由于网络问题没有发送出去,需要再次尝试
-    SI_MESSAGE_CREATING = 6,      // 创建中,草稿
-    SI_MESSAGE_ARRIVED = 7,       // 已到达
-    SI_MESSAGE_UNREAD = 10,       // 未读
-    SI_MESSAGE_READ = 11,         // 已读
-    SI_MESSAGE_UNKNOW = -1,       // 不存在此消息
-} SIMessageStatus;
+typedef ushort SIMessageStatus;
+
+extern const SIMessageStatus SI_MESSAGE_STATUS_UPLOADING;     // 上传中，对于语音，图片等
+extern const SIMessageStatus SI_MESSAGE_STATUS_SENDING;       // 发送中
+extern const SIMessageStatus SI_MESSAGE_STATUS_SENT;          // 发送成功
+extern const SIMessageStatus SI_MESSAGE_STATUS_FAILED;        // 发送失败
+extern const SIMessageStatus SI_MESSAGE_STATUS_NEEDREPEAT;    // 由于网络问题没有发送出去,需要再次尝试
+extern const SIMessageStatus SI_MESSAGE_STATUS_CREATING;      // 创建中,草稿
+extern const SIMessageStatus SI_MESSAGE_STATUS_ARRIVED;       // 已送达
+extern const SIMessageStatus SI_MESSAGE_STATUS_UPLOADFAILED;  // 上传失败，对于语音，图片等
+extern const SIMessageStatus SI_MESSAGE_STATUS_UNREAD;        // 未读
+extern const SIMessageStatus SI_MESSAGE_STATUS_READ;          // 已读
+extern const SIMessageStatus SI_MESSAGE_STATUS_UNKNOW;        // 不存在此消息
 
 
 /*!

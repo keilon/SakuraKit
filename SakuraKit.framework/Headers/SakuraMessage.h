@@ -199,7 +199,6 @@
  *
  * @discussion 消息需要封装为 `SIMessage` 类型，再调用此接口发送
  * 消息发送后通过回调 SakuraDelegate onSentMessage 反馈结果
- * 暂时只能发送 SISessionType 为 SI_SESSION_CHAT 或 SI_SESSION_GROUP 的消息
  *
  */
 - (void)sendMessage:(SIMessage * _Nonnull)message;

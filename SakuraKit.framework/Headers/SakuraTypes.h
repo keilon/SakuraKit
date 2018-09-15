@@ -319,21 +319,25 @@ extern const SIMessageStatus SI_MESSAGE_STATUS_UNKNOW;        // 不存在此消
 @property(nonatomic) SISessionType sessionType;
 ///会话的主要目标，即消息的发送目标
 @property(nonatomic, strong) NSString * _Nullable sessionMain;
-///会话的名称标签，单聊时为聊天对象名称，群聊时为群组名称
+///会话的名称标签，单聊时为聊天对象名称，群聊时为群组名称，系统会话时为会话标题
 @property(nonatomic, strong) NSString * _Nullable sessionLabel;
-///消息发送方
+///会话的类别，仅在系统会话中有效，标识系统会话的具体分类（如公众号，订阅号等）, 由应用方定义，sakura 透传
+@property(nonatomic, strong) NSString * _Nullable sessionCategory;
+///消息发送方，接收时用来标识消息发送方identify，发送时 sdk 会取用户的 identify 赋值
 @property(nonatomic, strong) NSString * _Nullable senderId;
-///消息发送方标签
+///消息发送方标签，接收时用来标识消息发送方label，发送时 sdk 会取用户的 label 赋值
 @property(nonatomic, strong) NSString * _Nullable senderLabel;
 ///消息id，应用层指定时推荐使用 `[[NSUUID UUID] UUIDString]` 生成，应用层不指定时 SDK 会自己生成
 @property(nonatomic, strong) NSString * _Nullable messageId;
 ///消息类型
 @property(nonatomic) SIMessageType messageType;
+///消息来源类型，仅在系统会话中有效，标识消息来源是系统通知类还是客服类，发送时不需要赋值
+@property(nonatomic, strong) NSString * _Nullable messageSourceType;
 ///消息详情对象
 @property(nonatomic, strong) SIMessageBody * _Nullable messageBody;
 ///消息的时间戳，发送时不需要赋值
 @property(nonatomic) double messageTS;
-///消息的来源，接收时用来标识消息来源，发送时不需要赋值
+///消息的 domain，接收时用来标识消息来源appId，发送时不需要赋值
 @property(nonatomic, strong) NSString * _Nullable domain;
 ///消息的状态
 @property(nonatomic) SIMessageStatus messageStatus;
@@ -357,8 +361,10 @@ extern const SIMessageStatus SI_MESSAGE_STATUS_UNKNOW;        // 不存在此消
 @property(nonatomic) SISessionType sessionType;
 ///会话的主要目标，即消息的发送目标
 @property(nonatomic, strong) NSString * _Nullable sessionMain;
-///会话的名称标签，单聊时为聊天对象名称，群聊时为群组名称
+///会话的名称标签，单聊时为聊天对象名称，群聊时为群组名称，系统会话时为会话标题
 @property(nonatomic, strong) NSString * _Nullable sessionLabel;
+///会话的类别，仅在系统会话中有效，标识系统会话的具体分类（如公众号，订阅号等）, 由应用方定义，sakura 透传
+@property(nonatomic, strong) NSString * _Nullable sessionCategory;
 ///最新一条消息的发送方
 @property(nonatomic, strong) NSString * _Nullable lastSenderId;
 ///最新一条消息的发送方标签
@@ -367,6 +373,8 @@ extern const SIMessageStatus SI_MESSAGE_STATUS_UNKNOW;        // 不存在此消
 @property(nonatomic, strong) NSString * _Nullable lastMessageId;
 ///最新一条消息的类型
 @property(nonatomic) SIMessageType lastMessageType;
+///最新一条消息的来源类型，仅在系统会话中有效，标识消息来源是系统通知类还是客服类
+@property(nonatomic, strong) NSString * _Nullable lastMessageSourceType;
 ///最新一条消息详情对象
 @property(nonatomic, strong) SIMessageBody * _Nullable lastMessageBody;
 ///最新一条消息的时间戳

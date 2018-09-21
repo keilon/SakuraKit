@@ -60,17 +60,28 @@ typedef enum {
  */
 typedef ushort SIMessageStatus;
 
-extern const SIMessageStatus SI_MESSAGE_STATUS_UPLOADING;     // 上传中，对于语音，图片等
-extern const SIMessageStatus SI_MESSAGE_STATUS_SENDING;       // 发送中
-extern const SIMessageStatus SI_MESSAGE_STATUS_SENT;          // 发送成功
-extern const SIMessageStatus SI_MESSAGE_STATUS_FAILED;        // 发送失败
-extern const SIMessageStatus SI_MESSAGE_STATUS_NEEDREPEAT;    // 由于网络问题没有发送出去,需要再次尝试
-extern const SIMessageStatus SI_MESSAGE_STATUS_CREATING;      // 创建中,草稿
-extern const SIMessageStatus SI_MESSAGE_STATUS_ARRIVED;       // 已送达
-extern const SIMessageStatus SI_MESSAGE_STATUS_UPLOADFAILED;  // 上传失败，对于语音，图片等
-extern const SIMessageStatus SI_MESSAGE_STATUS_UNREAD;        // 未读
-extern const SIMessageStatus SI_MESSAGE_STATUS_READ;          // 已读
-extern const SIMessageStatus SI_MESSAGE_STATUS_UNKNOW;        // 不存在此消息
+/// (1)  上传中，对于语音，图片等
+extern const SIMessageStatus SI_MESSAGE_STATUS_UPLOADING;
+/// (2)  发送中
+extern const SIMessageStatus SI_MESSAGE_STATUS_SENDING;
+/// (3)  发送成功
+extern const SIMessageStatus SI_MESSAGE_STATUS_SENT;
+/// (4)  发送失败
+extern const SIMessageStatus SI_MESSAGE_STATUS_FAILED;
+/// (5)  由于网络问题没有发送出去,需要再次尝试
+extern const SIMessageStatus SI_MESSAGE_STATUS_NEEDREPEAT;
+/// (6)  创建中,草稿
+extern const SIMessageStatus SI_MESSAGE_STATUS_CREATING;
+/// (7)  已送达
+extern const SIMessageStatus SI_MESSAGE_STATUS_ARRIVED;
+/// (8)  上传失败，对于语音，图片等
+extern const SIMessageStatus SI_MESSAGE_STATUS_UPLOADFAILED;
+/// (10) 未读
+extern const SIMessageStatus SI_MESSAGE_STATUS_UNREAD;
+/// (11) 已读
+extern const SIMessageStatus SI_MESSAGE_STATUS_READ;
+/// (0)  不存在此消息
+extern const SIMessageStatus SI_MESSAGE_STATUS_UNKNOW;
 
 
 /*!
@@ -84,11 +95,11 @@ extern const SIMessageStatus SI_MESSAGE_STATUS_UNKNOW;        // 不存在此消
 ///消息扩展字段
 @property(nonatomic, copy) NSString * _Nullable extra;
 
-///JSON反序列化
+///JSON 反序列化
 + (instancetype _Nullable)bodyWithJson:(NSString * _Nullable)data
                               withType:(SIMessageType) type;
 
-///JSON序列化
+///JSON 序列化
 - (NSString *_Nullable)toJson;
 
 @end
@@ -321,7 +332,7 @@ extern const SIMessageStatus SI_MESSAGE_STATUS_UNKNOW;        // 不存在此消
 @property(nonatomic, strong) NSString * _Nullable sessionMain;
 ///会话的名称标签，单聊时为聊天对象名称，群聊时为群组名称，系统会话时为会话标题
 @property(nonatomic, strong) NSString * _Nullable sessionLabel;
-///会话的类别，仅在系统会话中有效，标识系统会话的具体分类（如公众号，订阅号等）, 由应用方定义，sakura 透传
+///会话的类别，仅在系统会话中有效，标识系统会话的具体分类（如公众号，订阅号等）, 由应用方定义(SDK 透传)
 @property(nonatomic, strong) NSString * _Nullable sessionCategory;
 ///消息发送方，接收时用来标识消息发送方identify，发送时 sdk 会取用户的 identify 赋值
 @property(nonatomic, strong) NSString * _Nullable senderId;
@@ -363,7 +374,7 @@ extern const SIMessageStatus SI_MESSAGE_STATUS_UNKNOW;        // 不存在此消
 @property(nonatomic, strong) NSString * _Nullable sessionMain;
 ///会话的名称标签，单聊时为聊天对象名称，群聊时为群组名称，系统会话时为会话标题
 @property(nonatomic, strong) NSString * _Nullable sessionLabel;
-///会话的类别，仅在系统会话中有效，标识系统会话的具体分类（如公众号，订阅号等）, 由应用方定义，sakura 透传
+///会话的类别，仅在系统会话中有效，标识系统会话的具体分类（如公众号，订阅号等）, 由应用方定义(SDK 透传)
 @property(nonatomic, strong) NSString * _Nullable sessionCategory;
 ///最新一条消息的发送方
 @property(nonatomic, strong) NSString * _Nullable lastSenderId;

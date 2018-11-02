@@ -315,8 +315,6 @@ extern const SIMessageStatus SI_MESSAGE_STATUS_UNKNOW;
 @end
 
 
-
-
 /*!
  * 消息
  *
@@ -328,7 +326,7 @@ extern const SIMessageStatus SI_MESSAGE_STATUS_UNKNOW;
 @property(nonatomic, strong) NSString * _Nullable sessionId;
 ///会话类型
 @property(nonatomic) SISessionType sessionType;
-///会话的主要目标，即消息的发送目标
+///会话的主要目标，即消息的发送目标，发送时必须指定
 @property(nonatomic, strong) NSString * _Nullable sessionMain;
 ///会话的名称标签，单聊时为聊天对象名称，群聊时为群组名称，系统会话时为会话标题
 @property(nonatomic, strong) NSString * _Nullable sessionLabel;

@@ -91,6 +91,12 @@
            msgServer:(NSDictionary * _Nonnull)msgServer;
 
 /*!
+ * 清除 Sakura 参数配置
+ * 清除用户在 Sakura 中的id，label，token，appId，msgServer信息
+ * */
++ (void)clearConfigSakura;
+
+/*!
  * 提供 Sakura 服务端地址配置
  *
  * @param apiBase    指定 sakura api 的 base uri 地址
@@ -294,7 +300,7 @@
            completion:(void (^ _Nullable)(BOOL success, NSData * _Nullable data, NSError * _Nullable error))completionHandler;
 
 /*!
- * 获取离线信息
+ * 获取历史信息
  *
  * @param completionHandler 获取历史消息结果block
  *

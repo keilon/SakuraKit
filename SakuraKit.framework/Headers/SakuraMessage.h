@@ -29,50 +29,6 @@
 + (instancetype _Nonnull )sharedInstance;
 
 /*!
- * 连接 Sakura 服务器(deprecated)
- *
- * @param identify    用户在 Sakura 中的id
- * @param label       用户的名称标签
- * @param token       用户连接 Sakura 的凭证
- * @param appId       应用开发者向 sakura 注册的 appId
- * @param msgServer   Sakura message server 的地址
- * @param fileServer  Sakura file server 的地址
- *
- * @discussion 此方法必须被调用, 用来初始化相关配置并连接 Sakura Server
- * msgServer 和 fileServer 均为 `NSDictionary` 类型，由 Sakura 服务端返回的两个地址直接用于此处，不要做转换操作
- * label 参数用于离线推送时标识用户的名称
- * 接口将废弃
- *
- */
-+ (void)connectSakura:(NSString * _Nullable )identify
-                label:(NSString * _Nullable )label
-                token:(NSString * _Nullable )token
-                appId:(NSString * _Nullable )appId
-            msgServer:(NSDictionary * _Nullable )msgServer
-           fileServer:(NSDictionary * _Nullable )fileServer __deprecated;
-
-/*!
- * 初始化 Sakura 参数配置
- *
- * @param identify    用户在 Sakura 中的id
- * @param label       用户的名称标签
- * @param token       用户连接 Sakura 的凭证
- * @param appId       应用开发者向 sakura 注册的 appId
- * @param msgServer   Sakura message server 的地址
- * @param fileServer  Sakura file server 的地址
- *
- * @discussion 此方法用来初始化相关配置，使用不含 fileServer 参数的 `configSakura` 代替
- * label 参数用于离线推送时标识用户的名称
- * 接口将废弃，不再需要传入fileServer
- */
-+ (void)configSakura:(NSString * _Nullable )identify
-                label:(NSString * _Nullable )label
-                token:(NSString * _Nullable )token
-                appId:(NSString * _Nullable )appId
-            msgServer:(NSDictionary * _Nullable )msgServer
-           fileServer:(NSDictionary * _Nullable )fileServer __deprecated;
-
-/*!
  * 初始化 Sakura 参数配置
  *
  * @param identify    用户在 Sakura 中的id

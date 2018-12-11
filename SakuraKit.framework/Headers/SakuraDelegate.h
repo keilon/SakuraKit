@@ -62,6 +62,17 @@
 @optional
 - (void)onConnStatusChange:(SIConnStatus)status;
 
+/*!
+ * 强制下线通知
+ *
+ * @param reason 下线的原因
+ *
+ * 上层通过此代理方法监听强制下线的通知
+ *
+ */
+@optional
+- (void)onKickOff:(SIKickOffType)reason;
+
 @end
 
 #endif /* SakuraDelegate_h */

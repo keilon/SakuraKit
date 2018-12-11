@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name             = "SakuraKit"
-  s.version          = "0.8.9"
+  s.version          = "0.8.10"
   s.summary          = "Sakura iOS sdk."
   s.homepage         = "https://github.com/keilon/SakuraKit"
   s.license          = 'MIT'

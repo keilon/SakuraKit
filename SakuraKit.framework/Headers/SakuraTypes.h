@@ -22,6 +22,17 @@ typedef enum {
 } SIConnStatus;
 
 /*!
+ * 强制下线原因枚举
+ *
+ */
+typedef enum {
+    SI_KICKOFF_UNKNOWN = 0, //未知原因
+    SI_KICKOFF_LOCKED = 1,  //账号被管理员锁定
+    SI_KICKOFF_REMOTE = 2,  //其他同类设备登陆
+    SI_KICKOFF_USER = 3     //用户自己发起（如，在手机端关闭web端）
+} SIKickOffType;
+
+/*!
  * 会话类型枚举
  *
  */

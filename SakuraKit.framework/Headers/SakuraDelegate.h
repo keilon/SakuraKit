@@ -25,6 +25,20 @@
 @optional
 - (void)onReceiveMessage:(SIMessage *)message;
 
+
+/*!
+ * 接收事件消息回调
+ *
+ * @param eventMessage 接收到下发的消息
+ *
+ * @discussion 收到的消息体均为 `SIEventMessage` 类型，需要根据 sessionType 判断会话类型
+ *
+ */
+@optional
+- (void)onReceiveEventMessage:(SIEventMessage *)eventMessage;
+
+
+
 /*!
  * 发送消息结果返回回调
  *

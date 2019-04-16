@@ -39,7 +39,7 @@ typedef enum {
 typedef enum {
     SI_SESSION_CHAT = 0,
     SI_SESSION_GROUP = 1,
-    SI_SESSION_SYSTEM = 2
+    SI_SESSION_SYSTEM = 2,
 } SISessionType;
 
 /*!
@@ -57,8 +57,18 @@ typedef enum {
     SI_MESSAGE_CUSTOM = 8,
     SI_MESSAGE_SYSTEM = 9,
     SI_MESSAGE_RECALL = 10,
-    SI_MESSAGE_REMIND = 11
+    SI_MESSAGE_REMIND = 11,
 } SIMessageType;
+
+
+/*!
+ * 消息类型枚举
+ *  1 delivered, 2 displayed, 4 composing
+ */
+typedef enum {
+    SI_EVENT_DELIVERED = 1,  //已送达
+    SI_EVENT_DISPLAYED = 2,  //已展示
+} SIEventType;
 
 
 /*!
@@ -105,6 +115,8 @@ extern const SIMessageStatus SI_MESSAGE_STATUS_UNKNOW;
 
 ///消息扩展字段
 @property(nonatomic, copy) NSString * _Nullable extra;
+///是否需要回执 0不需要 2需要
+@property(nonatomic, assign) int32_t requestEvent;
 
 ///JSON 反序列化
 + (instancetype _Nullable)bodyWithJson:(NSString * _Nullable)data
@@ -325,6 +337,29 @@ extern const SIMessageStatus SI_MESSAGE_STATUS_UNKNOW;
 
 @end
 
+/*!
+ * 事件类型消息
+ *
+ */
+@interface SIEventMessage : NSObject
+///会话Id
+@property (nonatomic, strong) NSString * _Nullable sessionId;
+///会话类型
+@property (nonatomic) SISessionType sessionType;
+///消息id，应用层指定时推荐使用 `[[NSUUID UUID] UUIDString]` 生成，应用层不指定时 SDK 会自己生成
+@property (nonatomic, strong) NSString * _Nullable messageId;
+///会话的主要目标，即消息的发送目标，发送时必须指定
+@property (nonatomic, strong) NSString * _Nullable sessionMain;
+///消息的事件类型
+@property (nonatomic) SIEventType eventType;
+///targetID
+@property (nonatomic, strong) NSString * _Nullable eventTargetId;
+///消息的 domain，接收时用来标识消息来源appId，发送时不需要赋值
+@property(nonatomic, strong) NSString * _Nullable domain;
+
+@end
+
+
 
 /*!
  * 消息
@@ -361,7 +396,8 @@ extern const SIMessageStatus SI_MESSAGE_STATUS_UNKNOW;
 @property(nonatomic, strong) NSString * _Nullable domain;
 ///消息的状态
 @property(nonatomic) SIMessageStatus messageStatus;
-
+///是否需要回执
+@property(nonatomic) BOOL isNeedReceipt;
 
 @end
 

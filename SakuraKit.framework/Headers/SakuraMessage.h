@@ -165,6 +165,19 @@
  */
 - (void)sendMessage:(SIMessage * _Nonnull)message;
 
+
+/*!
+ * 发送事件类型消息接口
+ *
+ * @param eventMessage 发送的消息实体
+ *
+ * @discussion 消息需要封装为 `SIEventMessage` 类型，再调用此接口发送
+ * 消息发送后通过回调 SakuraDelegate onSentMessage 反馈结果
+ *
+ */
+- (void)sendEventMessage:(SIEventMessage * _Nonnull)eventMessage;
+
+
 /*!
  * 发送图片接口(deprecated)
  *
@@ -264,6 +277,20 @@
  *
  */
 - (void)getHistoryMessage:(void (^ _Nullable)(NSArray * _Nullable messageList, NSError * _Nullable error))completionHandler;
+
+
+/*!
+ * 拉取消息回执信息
+ *
+ *
+ * @param messageIds        需要获取回执信息的id数组   [messageid1, messageid2]
+ * @param completionHandler 获取历史消息结果block
+ *
+ * @discussion              以字典的形式返回每个消息对应的信息,调用之前必须先调用 [configSakura]
+ *
+ */
+- (void)getReceiptMessage:(NSArray * _Nonnull)messageIds
+               completion:(void (^ _Nullable)(NSDictionary * _Nullable messageDictionary, NSError * _Nullable error))completionHandler;
 
 @end
 

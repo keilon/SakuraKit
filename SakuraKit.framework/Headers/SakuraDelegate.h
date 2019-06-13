@@ -27,16 +27,23 @@
 
 
 /*!
- * 接收事件消息回调
+ * 接收消息回执回调
  *
- * @param eventMessage 接收到下发的消息
- *
- * @discussion 收到的消息体均为 `SIEventMessage` 类型，需要根据 sessionType 判断会话类型
+ * @param messageRecvEvent 接收到的回执事件
  *
  */
 @optional
-- (void)onReceiveEventMessage:(SIEventMessage *)eventMessage;
+- (void)onReceiveMessageAck:(SIMessageRecvEvent *)messageRecvEvent;
 
+
+/*!
+ * 接收会话状态回调
+ *
+ * @param sessionStateEvent 接收到的会话状态事件
+ *
+ */
+@optional
+- (void)onReceiveSessionState:(SISessionStateEvent *)sessionStateEvent;
 
 
 /*!
@@ -49,6 +56,7 @@
 @optional
 - (void)onSentMessage:(SIMessage *)message
                result:(BOOL) success;
+
 
 /*!
  * 同步离线消息结果回调
@@ -63,6 +71,7 @@
 @optional
 - (void)onSyncOfflineMessage:(NSArray *)messageList;
 
+
 /*!
  * 连接状态通知回调
  *
@@ -75,6 +84,7 @@
  */
 @optional
 - (void)onConnStatusChange:(SIConnStatus)status;
+
 
 /*!
  * 强制下线通知

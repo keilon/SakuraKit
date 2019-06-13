@@ -43,6 +43,16 @@ typedef enum {
 } SISessionType;
 
 /*!
+ * 会话状态枚举
+ *
+ */
+typedef enum {
+    SI_SESSION_STATE_ACTIVE = 1,     //用户激活会话（一般是用户主动打开一个会话时发起，目前只会通知用户其他设备，不会通知会话目标）
+    SI_SESSION_STATE_COMPOSING = 2,  //用户编辑中  （用户在会话中编辑一条待发送的消息）
+    SI_SESSION_STATE_INACTIVE  = 3,  //用户暂离会话（一般是用户主动关闭一个会话时发起，目前只会通知用户其他设备，不会通知会话目标）
+} SISessionState;
+
+/*!
  * 消息类型枚举
  *
  */
@@ -62,13 +72,18 @@ typedef enum {
 
 
 /*!
- * 消息类型枚举
- *  1 delivered, 2 displayed, 4 composing
+ * 消息接受状态
+ *
+ * TODO 已送达和已接收暂未实现
  */
-typedef enum {
-    SI_EVENT_DELIVERED = 1,  //已送达
-    SI_EVENT_DISPLAYED = 2,  //已展示
-} SIEventType;
+typedef int32_t SIMessageRecvState;
+
+/// (0x01) 已送达（消息已经送达至接收方）
+extern const SIMessageRecvState SI_MESSAGE_RECV_DELIVERED;
+/// (0x02) 已读
+extern const SIMessageRecvState SI_MESSAGE_RECV_DISPLAYED;
+/// (0x04) 已接收（消息已经被服务端接收）
+extern const SIMessageRecvState SI_MESSAGE_RECV_ACCEPTED;
 
 
 /*!
@@ -115,8 +130,6 @@ extern const SIMessageStatus SI_MESSAGE_STATUS_UNKNOW;
 
 ///消息扩展字段
 @property(nonatomic, copy) NSString * _Nullable extra;
-///是否需要回执 0不需要 2需要
-@property(nonatomic, assign) int32_t requestEvent;
 
 ///JSON 反序列化
 + (instancetype _Nullable)bodyWithJson:(NSString * _Nullable)data
@@ -286,7 +299,7 @@ extern const SIMessageStatus SI_MESSAGE_STATUS_UNKNOW;
 @property(nonatomic, readwrite, copy) NSString * _Nullable type;
 ///自定义消息的消息体，SDK 透传给应用层
 @property(nonatomic, readwrite, copy) NSString * _Nullable body;
-//自定义消息push内容
+///自定义消息远程推送时显示的内容
 @property(nonatomic, readwrite, copy) NSString * _Nullable pushContent;
 
 
@@ -314,51 +327,72 @@ extern const SIMessageStatus SI_MESSAGE_STATUS_UNKNOW;
  */
 @interface SIRecallBody : SIMessageBody
 
-//撤回消息的ID
+///撤回消息的ID
 @property(nonatomic, readwrite, copy) NSString * _Nullable messageId;
 
 @end
 
 
 /*!
- * @消息
+ * 群@消息
  *
- * @消息的body
+ * 群@消息的body
  *
- * identifies可以为被@用户的identify,也可以为群的id
- * content为的发送的内容
  */
 @interface SIRemindBody : SIMessageBody
 
-// 被@用户的identify组成的数组.[identify,identify,...] 或者 @所有人时传入群的id [groupId]
+///被@用户的identify组成的数组.[identify,identify,...] 或者 @所有人时传入群的id [groupId]
 @property(nonatomic, readwrite, copy) NSArray * _Nullable identifies;
-//内容
+///内容
 @property(nonatomic, readwrite, copy) NSString * _Nullable content;
 
 @end
 
+
 /*!
- * 事件类型消息
- *
+ * 接受状态事件（回执事件）
  */
-@interface SIEventMessage : NSObject
-///会话Id
+@interface SIMessageRecvEvent : NSObject
+
+///目标消息所属会话Id
 @property (nonatomic, strong) NSString * _Nullable sessionId;
-///会话类型
+///目标消息所属会话类型
 @property (nonatomic) SISessionType sessionType;
-///消息id，应用层指定时推荐使用 `[[NSUUID UUID] UUIDString]` 生成，应用层不指定时 SDK 会自己生成
-@property (nonatomic, strong) NSString * _Nullable messageId;
-///会话的主要目标，即消息的发送目标，发送时必须指定
-@property (nonatomic, strong) NSString * _Nullable sessionMain;
-///消息的事件类型
-@property (nonatomic) SIEventType eventType;
-///targetID
-@property (nonatomic, strong) NSString * _Nullable eventTargetId;
-///消息的 domain，接收时用来标识消息来源appId，发送时不需要赋值
+///事件发送方，接收时用来标识发送方，发送时 sdk 会取用户的 identify 赋值
+@property(nonatomic, strong) NSString * _Nullable senderId;
+///事件接收方，发送时必须指定，一般为目标消息的发送方
+@property(nonatomic, strong) NSString * _Nullable receiverId;
+///接受状态
+@property (nonatomic) SIMessageRecvState recvState;
+///目标消息id
+@property (nonatomic, strong) NSString * _Nullable targetMessageId;
+///事件的 domain，用来标识消息来源appId
 @property(nonatomic, strong) NSString * _Nullable domain;
 
 @end
 
+
+/*!
+ * 会话状态事件
+ */
+@interface SISessionStateEvent : NSObject
+
+///会话Id
+@property (nonatomic, strong) NSString * _Nullable sessionId;
+///会话类型
+@property (nonatomic) SISessionType sessionType;
+///会话的主要目标，即消息的发送目标，发送时必须指定
+@property(nonatomic, strong) NSString * _Nullable sessionMain;
+///事件发送方，接收时用来标识发送方identify，发送时 sdk 会取用户的 identify 赋值
+@property(nonatomic, strong) NSString * _Nullable senderId;
+///会话状态
+@property (nonatomic) SISessionState state;
+///事件扩展字段
+@property (nonatomic, strong) NSString * _Nullable extra;
+///事件的 domain，接收时用来标识消息来源appId，发送时不需要赋值
+@property(nonatomic, strong) NSString * _Nullable domain;
+
+@end
 
 
 /*!
@@ -396,8 +430,9 @@ extern const SIMessageStatus SI_MESSAGE_STATUS_UNKNOW;
 @property(nonatomic, strong) NSString * _Nullable domain;
 ///消息的状态
 @property(nonatomic) SIMessageStatus messageStatus;
-///是否需要回执
-@property(nonatomic) BOOL isNeedReceipt;
+///需要的回执事件(目前仅支持已读事件)，默认为0(即不要求回执)，参考 SIMessageRecvState 定义，多个事件可合并传递
+/// 如：2 已读报告，3 送达报告+已读报告，7 接受报告+送达报告+已读报告
+@property(nonatomic, assign) int32_t requestEvent;
 
 @end
 

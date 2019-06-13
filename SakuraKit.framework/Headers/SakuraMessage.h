@@ -48,7 +48,8 @@
 
 /*!
  * 清除 Sakura 参数配置
- * 清除用户在 Sakura 中的id，label，token，appId，msgServer信息
+ *
+ * @discussion 清除 [configSakura] 中的各项设置
  * */
 + (void)clearConfigSakura;
 
@@ -58,7 +59,8 @@
  * @param apiBase    指定 sakura api 的 base uri 地址
  * @param fileBase   指定 sakura file 的 base uri 地址
  *
- * @discussion base uri 地址格式为 scheme://host[:port] 例如：
+ * @discussion 默认为 sakura 生产环境
+ * base uri 地址格式为 scheme://host[:port] 例如：
  *      https://tkim.top
  *      https://tkim.top:8443
  *      http://tkim.top
@@ -88,10 +90,23 @@
  *
  * @param deviceToken 从注册推送回调中拿到的 DeviceToken
  *
- * @discussion 需要离线推送功能时，必须调用此方法
+ * @discussion 相当于 [registerDeviceToken:xxx useSandbox:false]
  *
  */
 + (void)registerDeviceToken:(NSData *_Nullable)deviceToken;
+
+/*!
+ * 注册 DeviceToken
+ *
+ * @param deviceToken 从注册推送回调中拿到的 DeviceToken
+ * @param useSandbox  是否使用沙箱环境
+ *
+ * @discussion 需要离线推送功能时，必须调用此方法
+ * app 为开发版时，useSandbox 的值需要指定为 true
+ *
+ */
++ (void)registerDeviceToken:(NSData *_Nullable)deviceToken
+                 useSandbox:(BOOL)useSandbox;
 
 /*!
  * 设置角标(到服务器)
@@ -111,7 +126,6 @@
  *
  */
 + (void)resetBadge;
-
 
 /*!
  * 是否打印日志
@@ -165,34 +179,26 @@
  */
 - (void)sendMessage:(SIMessage * _Nonnull)message;
 
-
 /*!
- * 发送事件类型消息接口
+ * 发送消息回执
  *
- * @param eventMessage 发送的消息实体
+ * @param messageRecvEvent 消息回执事件
  *
- * @discussion 消息需要封装为 `SIEventMessage` 类型，再调用此接口发送
- * 消息发送后通过回调 SakuraDelegate onSentMessage 反馈结果
+ * @discussion 消息需要封装为 `SIMessageRecvEvent` 类型，再调用此接口发送
+ * 目前仅支持发送 recvState 为 SI_MESSAGE_RECV_DISPLAYED 的事件
  *
  */
-- (void)sendEventMessage:(SIEventMessage * _Nonnull)eventMessage;
-
+- (void)sendMessageAck:(SIMessageRecvEvent * _Nonnull)messageRecvEvent;
 
 /*!
- * 发送图片接口(deprecated)
+ * 发送会话状态事件
  *
- * @param aImage 图片
- * @param session 当前聊天的session
- * @param progressBlock 发送进度block
- * @param completionHandler 发送结果block
+ * @param sessionStateEvent 发送的消息实体
  *
- * @discussion 上传图片资源，同时发送消息，相当于先调用 [uploadImage]，再调用 [sendMessage]
- * 接口将废弃， 应用层先调用uploadImage，上传成功后封装成 `SIMessage`， 再调用 [sendMessage] 方法
+ * @discussion 消息需要封装为 `SISessionStateEvent` 类型，再调用此接口发送
+ *
  */
-- (void)sendImageMessage:(UIImage * _Nonnull)aImage
-                 session:(SISession * _Nonnull)session
-                progress:(void (^ _Nullable)(int progress))progressBlock
-              completion:(void (^ _Nullable)(BOOL success, NSError * _Nullable error))completionHandler __deprecated;
+- (void)sendSessionState:(SISessionStateEvent * _Nonnull)sessionStateEvent;
 
 /*!
  * 上传图片接口
@@ -241,10 +247,10 @@
  *
  * @param mediaId           待下载的文件mediaId
  * @param filePath          音频文件下载存放的地址
- * @param progressBlock     下载进度block
+ * @param progressBlock     下载进度blocknbgg
  * @param completionHandler 下载结果block
  *
- * @discussion              上传成功后，通过回调返回 `data` 类型
+ * @discussion              下载成功后，通过回调返回 `data` 类型
  *
  */
 - (void)downloadAudio:(NSString * _Nonnull)mediaId
@@ -260,7 +266,7 @@
  * @param progressBlock     下载进度block
  * @param completionHandler 下载结果block
  *
- * @discussion              上传成功后，通过回调返回 `data` 类型
+ * @discussion              下载成功后，通过回调返回 `data` 类型
  *
  */
 - (void)downloadVideo:(NSString * _Nonnull)mediaId
@@ -277,7 +283,6 @@
  *
  */
 - (void)getHistoryMessage:(void (^ _Nullable)(NSArray * _Nullable messageList, NSError * _Nullable error))completionHandler;
-
 
 /*!
  * 拉取消息回执信息

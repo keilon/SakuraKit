@@ -74,7 +74,7 @@ typedef enum {
 /*!
  * 消息接受状态
  *
- * TODO 已送达和已接收暂未实现
+ * TODO 已送达暂未实现
  */
 typedef int32_t SIMessageRecvState;
 
@@ -82,8 +82,6 @@ typedef int32_t SIMessageRecvState;
 extern const SIMessageRecvState SI_MESSAGE_RECV_DELIVERED;
 /// (0x02) 已读
 extern const SIMessageRecvState SI_MESSAGE_RECV_DISPLAYED;
-/// (0x04) 已接收（消息已经被服务端接收）
-extern const SIMessageRecvState SI_MESSAGE_RECV_ACCEPTED;
 
 
 /*!

@@ -57,7 +57,6 @@
 - (void)onSentMessage:(SIMessage *)message
                result:(BOOL) success;
 
-
 /*!
  * 同步离线消息结果回调
  *
